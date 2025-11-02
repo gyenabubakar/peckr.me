@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as authLayoutRouteImport } from './routes/(auth)/_layout'
 import { Route as authLayoutRegisterRouteImport } from './routes/(auth)/_layout.register'
 import { Route as authLayoutLoginRouteImport } from './routes/(auth)/_layout.login'
+import { Route as authLayoutForgotPasswordRouteImport } from './routes/(auth)/_layout.forgot-password'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,14 +34,22 @@ const authLayoutLoginRoute = authLayoutLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => authLayoutRoute,
 } as any)
+const authLayoutForgotPasswordRoute =
+  authLayoutForgotPasswordRouteImport.update({
+    id: '/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => authLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/register': typeof authLayoutRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/register': typeof authLayoutRegisterRoute
 }
@@ -48,18 +57,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/(auth)/_layout': typeof authLayoutRouteWithChildren
+  '/(auth)/_layout/forgot-password': typeof authLayoutForgotPasswordRoute
   '/(auth)/_layout/login': typeof authLayoutLoginRoute
   '/(auth)/_layout/register': typeof authLayoutRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register'
+  fullPaths: '/' | '/forgot-password' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register'
+  to: '/' | '/forgot-password' | '/login' | '/register'
   id:
     | '__root__'
     | '/'
     | '/(auth)/_layout'
+    | '/(auth)/_layout/forgot-password'
     | '/(auth)/_layout/login'
     | '/(auth)/_layout/register'
   fileRoutesById: FileRoutesById
@@ -99,15 +110,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutLoginRouteImport
       parentRoute: typeof authLayoutRoute
     }
+    '/(auth)/_layout/forgot-password': {
+      id: '/(auth)/_layout/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authLayoutForgotPasswordRouteImport
+      parentRoute: typeof authLayoutRoute
+    }
   }
 }
 
 interface authLayoutRouteChildren {
+  authLayoutForgotPasswordRoute: typeof authLayoutForgotPasswordRoute
   authLayoutLoginRoute: typeof authLayoutLoginRoute
   authLayoutRegisterRoute: typeof authLayoutRegisterRoute
 }
 
 const authLayoutRouteChildren: authLayoutRouteChildren = {
+  authLayoutForgotPasswordRoute: authLayoutForgotPasswordRoute,
   authLayoutLoginRoute: authLayoutLoginRoute,
   authLayoutRegisterRoute: authLayoutRegisterRoute,
 }

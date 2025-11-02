@@ -4,25 +4,23 @@ import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
-import { LoginSchema } from '~/features/auth/schemas';
-import { SocialAuthButtons } from '~/features/auth/ui';
+import { ForgotPasswordSchema } from '~/features/auth/schemas';
 import { sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
-export const Route = createFileRoute('/(auth)/_layout/login')({
-  component: LoginPage,
+export const Route = createFileRoute('/(auth)/_layout/forgot-password')({
+  component: ForgotPasswordPage,
 });
 
-function LoginPage() {
+function ForgotPasswordPage() {
   const form = useForm({
     validators: {
-      onBlur: LoginSchema,
-      onChange: LoginSchema,
-      onSubmit: LoginSchema,
+      onBlur: ForgotPasswordSchema,
+      onChange: ForgotPasswordSchema,
+      onSubmit: ForgotPasswordSchema,
     },
     defaultValues: {
       email: '',
-      password: '',
     },
     async onSubmit({ value }) {
       await sleep();
@@ -33,9 +31,15 @@ function LoginPage() {
 
   return (
     <>
-      <h1>
-        Log in to your <span>Peckr</span> account.
-      </h1>
+      <div className="text-center mb-10">
+        <h1 className="!mb-1">
+          Reset your <span>Peckr</span> account password.
+        </h1>
+        <p className="text-muted-foreground">
+          If your email is associated with an account, we will send you link to change your
+          password.
+        </p>
+      </div>
 
       <form onSubmit={getSubmitHandler(form)}>
         <FieldGroup>
@@ -56,25 +60,6 @@ function LoginPage() {
               );
             }}
           </form.Field>
-
-          <form.Field name="password">
-            {(field) => {
-              const { isInvalid, fieldProps } = getFieldProps(field);
-              return (
-                <Field data-invalid={isInvalid}>
-                  <div className="flex items-center justify-between">
-                    <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                    <Link to="/forgot-password" className="text-sm">
-                      Forgot password?
-                    </Link>
-                  </div>
-
-                  <Input {...fieldProps} type="password" autoComplete="current-password" />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
-                </Field>
-              );
-            }}
-          </form.Field>
         </FieldGroup>
 
         <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
@@ -84,16 +69,14 @@ function LoginPage() {
               loading={isSubmitting}
               disabled={!canSubmit || isSubmitting}
             >
-              Log in
+              Send link
             </Button>
           )}
         </form.Subscribe>
       </form>
 
-      <SocialAuthButtons />
-
       <p data-do-other>
-        Don't have an account? <Link to="/register">Sign up</Link>.
+        Remembered your password? <Link to="/login">Log in</Link>.
       </p>
     </>
   );
