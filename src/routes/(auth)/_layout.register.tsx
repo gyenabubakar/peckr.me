@@ -20,12 +20,20 @@ export const Route = createFileRoute('/(auth)/_layout/register')({
 });
 
 function RouteComponent() {
-  const [stage, _setStage] = useState<'register' | 'verify'>('register');
+  const [stage, setStage] = useState<'register' | 'verify'>('register');
 
-  return <main>{stage === 'register' ? <RegisterPage /> : <EmailVerification />}</main>;
+  return (
+    <main>
+      {stage === 'register' ? <RegisterPage setStage={setStage} /> : <EmailVerification />}
+    </main>
+  );
 }
 
-function RegisterPage() {
+interface RegisterPageProps {
+  setStage: (stage: 'register' | 'verify') => void;
+}
+
+function RegisterPage({ setStage }: RegisterPageProps) {
   const form = useForm({
     validators: {
       onBlur: RegisterSchema,
@@ -40,6 +48,7 @@ function RegisterPage() {
       await sleep();
       console.log('onSubmit:', value);
       toast.success('Form submitted successfully');
+      setStage('verify');
     },
   });
 
@@ -83,9 +92,8 @@ function RegisterPage() {
           </form.Field>
         </FieldGroup>
 
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
+        <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+          {([canSubmit, isSubmitting]) => (
             <Button
               className="w-full mt-5"
               loading={isSubmitting}
@@ -94,7 +102,7 @@ function RegisterPage() {
               Create account
             </Button>
           )}
-        />
+        </form.Subscribe>
       </form>
 
       <SocialAuthButtons />
@@ -130,7 +138,7 @@ function EmailVerification() {
 
   useEffect(() => {
     startCountdown();
-  }, []);
+  }, [startCountdown]);
 
   function resendOTP() {
     if (count !== 0) return;
@@ -180,9 +188,8 @@ function EmailVerification() {
           }}
         </form.Field>
 
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
+        <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+          {([canSubmit, isSubmitting]) => (
             <Button
               className="w-full mt-6"
               loading={isSubmitting}
@@ -191,7 +198,7 @@ function EmailVerification() {
               Continue
             </Button>
           )}
-        />
+        </form.Subscribe>
 
         <p data-do-other>
           Didn&apos;t receive a code?{' '}

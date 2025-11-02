@@ -12,7 +12,7 @@ export function SocialAuthButtons() {
       </div>
 
       <Button variant="outline" className="w-full">
-        <img src="/icons/google.svg" alt="google" aria-hidden className="size-4" />
+        <img src="/icons/google.svg" alt="" aria-hidden className="size-4" />
         <span>Continue with Google</span>
       </Button>
     </div>

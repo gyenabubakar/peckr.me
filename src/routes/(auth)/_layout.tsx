@@ -9,9 +9,9 @@ function AuthLayout() {
   return (
     <WithDotsBackground className="w-screen h-screen">
       <div className="space-y-[200px]">
-        <div className="w-full flex items-center justify-center py-2">
+        <div className="w-full flex items-center justify-center py-4">
           <Link to="/">
-            <img src="/logo.png" alt="Peckr logo" className="w-28" />
+            <img src="/logo.svg" alt="Peckr logo" className="w-24" />
           </Link>
         </div>
 

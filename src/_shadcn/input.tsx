@@ -36,8 +36,9 @@ function Input({ className, type, canToggleVisibility = true, ...props }: Props)
         <SimpleTooltip title={`${revealed ? 'Hide' : 'Show'} password`}>
           <button
             type="button"
-            className="absolute right-2 top-[7px]"
+            className="absolute right-2 top-1/2 -translate-y-1/2"
             onClick={() => setRevealed((v) => !v)}
+            aria-label={revealed ? 'Hide password' : 'Show password'}
           >
             {revealed ? <EyeOffIcon strokeWidth={1.2} /> : <EyeIcon strokeWidth={1.2} />}
           </button>
