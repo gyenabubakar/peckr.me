@@ -52,15 +52,6 @@ export default defineConfig([
       'react/no-children-prop': 'error',
       'react/void-dom-elements-no-children': 'error',
 
-      // Performance & Best Practices
-      'react/jsx-no-bind': [
-        'warn',
-        {
-          allowArrowFunctions: true,
-          ignoreDOMComponents: true,
-        },
-      ],
-
       // Code Style
       'react/jsx-curly-brace-presence': [
         'warn',

@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as authLayoutRouteImport } from './routes/(auth)/_layout'
+import { Route as ApponboardingOnboardingRouteImport } from './routes/app/(onboarding)/onboarding'
 import { Route as authLayoutResetPasswordRouteImport } from './routes/(auth)/_layout.reset-password'
 import { Route as authLayoutRegisterRouteImport } from './routes/(auth)/_layout.register'
 import { Route as authLayoutLoginRouteImport } from './routes/(auth)/_layout.login'
 import { Route as authLayoutForgotPasswordRouteImport } from './routes/(auth)/_layout.forgot-password'
+import { Route as ApponboardingOnboardingIndexRouteImport } from './routes/app/(onboarding)/onboarding.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const authLayoutRoute = authLayoutRouteImport.update({
   id: '/(auth)/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApponboardingOnboardingRoute = ApponboardingOnboardingRouteImport.update({
+  id: '/app/(onboarding)/onboarding',
+  path: '/app/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const authLayoutResetPasswordRoute = authLayoutResetPasswordRouteImport.update({
@@ -46,6 +53,12 @@ const authLayoutForgotPasswordRoute =
     path: '/forgot-password',
     getParentRoute: () => authLayoutRoute,
   } as any)
+const ApponboardingOnboardingIndexRoute =
+  ApponboardingOnboardingIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => ApponboardingOnboardingRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLayoutLoginRoute
   '/register': typeof authLayoutRegisterRoute
   '/reset-password': typeof authLayoutResetPasswordRoute
+  '/app/onboarding': typeof ApponboardingOnboardingRouteWithChildren
+  '/app/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -60,6 +75,7 @@ export interface FileRoutesByTo {
   '/login': typeof authLayoutLoginRoute
   '/register': typeof authLayoutRegisterRoute
   '/reset-password': typeof authLayoutResetPasswordRoute
+  '/app/onboarding': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,6 +85,8 @@ export interface FileRoutesById {
   '/(auth)/_layout/login': typeof authLayoutLoginRoute
   '/(auth)/_layout/register': typeof authLayoutRegisterRoute
   '/(auth)/_layout/reset-password': typeof authLayoutResetPasswordRoute
+  '/app/(onboarding)/onboarding': typeof ApponboardingOnboardingRouteWithChildren
+  '/app/(onboarding)/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,8 +96,16 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/reset-password'
+    | '/app/onboarding'
+    | '/app/onboarding/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/register' | '/reset-password'
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/app/onboarding'
   id:
     | '__root__'
     | '/'
@@ -88,11 +114,14 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/login'
     | '/(auth)/_layout/register'
     | '/(auth)/_layout/reset-password'
+    | '/app/(onboarding)/onboarding'
+    | '/app/(onboarding)/onboarding/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   authLayoutRoute: typeof authLayoutRouteWithChildren
+  ApponboardingOnboardingRoute: typeof ApponboardingOnboardingRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -109,6 +138,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof authLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/(onboarding)/onboarding': {
+      id: '/app/(onboarding)/onboarding'
+      path: '/app/onboarding'
+      fullPath: '/app/onboarding'
+      preLoaderRoute: typeof ApponboardingOnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth)/_layout/reset-password': {
@@ -139,6 +175,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutForgotPasswordRouteImport
       parentRoute: typeof authLayoutRoute
     }
+    '/app/(onboarding)/onboarding/': {
+      id: '/app/(onboarding)/onboarding/'
+      path: '/'
+      fullPath: '/app/onboarding/'
+      preLoaderRoute: typeof ApponboardingOnboardingIndexRouteImport
+      parentRoute: typeof ApponboardingOnboardingRoute
+    }
   }
 }
 
@@ -160,9 +203,24 @@ const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
   authLayoutRouteChildren,
 )
 
+interface ApponboardingOnboardingRouteChildren {
+  ApponboardingOnboardingIndexRoute: typeof ApponboardingOnboardingIndexRoute
+}
+
+const ApponboardingOnboardingRouteChildren: ApponboardingOnboardingRouteChildren =
+  {
+    ApponboardingOnboardingIndexRoute: ApponboardingOnboardingIndexRoute,
+  }
+
+const ApponboardingOnboardingRouteWithChildren =
+  ApponboardingOnboardingRoute._addFileChildren(
+    ApponboardingOnboardingRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authLayoutRoute: authLayoutRouteWithChildren,
+  ApponboardingOnboardingRoute: ApponboardingOnboardingRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

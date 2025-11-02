@@ -2,13 +2,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { cn } from 'shadcn/lib/utils';
+import type { ClassValue } from 'clsx';
 import { SimpleTooltip } from '~/components';
 
 interface Props extends React.ComponentProps<'input'> {
   canToggleVisibility?: boolean;
+  wrapperClass?: ClassValue;
 }
 
-function Input({ className, type, canToggleVisibility = true, ...props }: Props) {
+function Input({ className, type, canToggleVisibility = true, wrapperClass, ...props }: Props) {
   const [revealed, setRevealed] = useState(false);
 
   const inputType = (() => {
@@ -18,7 +20,7 @@ function Input({ className, type, canToggleVisibility = true, ...props }: Props)
   })();
 
   return (
-    <div className="relative">
+    <div className={cn('relative', wrapperClass)}>
       <input
         type={inputType}
         data-slot="input"
