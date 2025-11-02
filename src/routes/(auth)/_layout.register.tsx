@@ -19,8 +19,10 @@ export const Route = createFileRoute('/(auth)/_layout/register')({
   component: RouteComponent,
 });
 
+type RegistrationStage = 'register' | 'verify';
+
 function RouteComponent() {
-  const [stage, setStage] = useState<'register' | 'verify'>('register');
+  const [stage, setStage] = useState<RegistrationStage>('register');
 
   return (
     <main>
@@ -30,7 +32,7 @@ function RouteComponent() {
 }
 
 interface RegisterPageProps {
-  setStage: (stage: 'register' | 'verify') => void;
+  setStage: (stage: RegistrationStage) => void;
 }
 
 function RegisterPage({ setStage }: RegisterPageProps) {

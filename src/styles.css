@@ -133,4 +133,8 @@
   button {
     @apply cursor-pointer;
   }
+
+  a {
+    @apply text-primary font-semibold;
+  }
 }
