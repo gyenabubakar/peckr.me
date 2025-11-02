@@ -50,7 +50,7 @@ function ResetPasswordPage() {
         </h1>
         <p className="text-muted-foreground">
           Change the password for your account with email: <br />
-          <span className="font-semibold text-gray-600">gyen@peckr.me</span>
+          <span className="font-semibold text-gray-600">{data.email}</span>
         </p>
       </div>
 
