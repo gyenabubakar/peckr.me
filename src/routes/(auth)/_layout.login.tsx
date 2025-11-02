@@ -49,7 +49,7 @@ function LoginPage() {
                     {...fieldProps}
                     type="email"
                     placeholder="gyen@peckr.me"
-                    autoComplete="off"
+                    autoComplete="email"
                   />
                   {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
                 </Field>
@@ -69,7 +69,7 @@ function LoginPage() {
                       Forgot password?
                     </Link>
                   </div>
-                  <Input {...fieldProps} type="password" autoComplete="off" />
+                  <Input {...fieldProps} type="password" autoComplete="current-password" />
                   {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
                 </Field>
               );
