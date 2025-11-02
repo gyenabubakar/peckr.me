@@ -57,7 +57,7 @@ function Button({ className, variant, size, asChild = false, loading, ...props }
 
       {loading ? (
         <>
-          <LoaderCircleIcon className="animate-spin absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-black" />
+          <LoaderCircleIcon className="animate-spin absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 " />
           <span className="sr-only" aria-live="polite">
             Loading...
           </span>

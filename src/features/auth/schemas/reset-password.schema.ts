@@ -14,7 +14,7 @@ export const ResetPasswordSchema = v.pipe(
     passwordConfirmation: PasswordSchema,
   }),
   v.forward(
-    v.check((o) => o.password !== o.passwordConfirmation, 'Passwords do not match.'),
+    v.check((o) => o.password === o.passwordConfirmation, 'Passwords do not match.'),
     ['passwordConfirmation'],
   ),
   v.transform((o) => ({
