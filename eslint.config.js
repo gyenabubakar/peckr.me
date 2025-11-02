@@ -6,7 +6,7 @@ import globals from 'globals';
 export default defineConfig([
   ...tanstackConfig,
   {
-    ignores: ['convex/_generated/*', 'lint-staged.config.js'],
+    ignores: ['convex/_generated/*', 'src/_shadcn/*', 'lint-staged.config.js'],
   },
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
