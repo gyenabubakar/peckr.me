@@ -12,7 +12,8 @@ export function WithDotsBackground({ children = null, className }: Props) {
     <div className={cn('w-full bg-white relative', className)}>
       {/* Noise Texture (Darker Dots) Background */}
       <div
-        className="absolute inset-0 z-0"
+        data-patterns
+        className="absolute inset-0 z-0 opacity-25"
         style={{
           background: '#ffffff',
           backgroundImage:
@@ -20,7 +21,8 @@ export function WithDotsBackground({ children = null, className }: Props) {
           backgroundSize: '20px 20px',
         }}
       />
-      {children}
+
+      <div className="relative w-full h-full z-[1]">{children}</div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
+import { LoaderCircleIcon } from 'lucide-react';
 import { cn } from 'shadcn/lib/utils';
 import type { VariantProps } from 'class-variance-authority';
 
@@ -13,8 +14,8 @@ const buttonVariants = cva(
         destructive:
           'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+          'border bg-white hover:bg-secondary shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border-border',
+        secondary: 'bg-secondary text-secondary-foreground',
         ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
       },
@@ -34,24 +35,35 @@ const buttonVariants = cva(
   },
 );
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+type BaseProps = React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>;
+
+interface Props extends BaseProps {
+  asChild?: boolean;
+  loading?: boolean;
+}
+
+function Button({ className, variant, size, asChild = false, loading, ...props }: Props) {
   const Comp = asChild ? Slot : 'button';
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn('relative', buttonVariants({ variant, size }), className)}
       {...props}
-    />
+      disabled={loading || props.disabled}
+      aria-busy={loading}
+    >
+      {props.children}
+
+      {loading ? (
+        <>
+          <LoaderCircleIcon className="animate-spin absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 " />
+          <span className="sr-only" aria-live="polite">
+            Loading...
+          </span>
+        </>
+      ) : null}
+    </Comp>
   );
 }
 
