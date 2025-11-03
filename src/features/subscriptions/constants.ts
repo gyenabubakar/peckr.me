@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import type { PricingPlan } from './types';
 
-export const PRICING_PLANS: PricingPlan[] = [
+export const PRICING_PLANS = Object.freeze([
   {
     name: 'FREE',
     price: {
@@ -56,4 +56,4 @@ export const PRICING_PLANS: PricingPlan[] = [
       subtitle: 'No credit card required.',
     },
   },
-];
+] satisfies PricingPlan[]);

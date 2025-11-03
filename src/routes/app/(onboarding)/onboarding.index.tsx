@@ -101,7 +101,7 @@ function CreateOrganisationPage() {
                   <FieldLabel htmlFor={field.name}>Organisation slug</FieldLabel>
 
                   <div className="relative w-full flex">
-                    <div className="bg-gray-50 px-2.5 border-y border-l h-[37.44] rounded-l-md border-border flex items-center justify-center">
+                    <div className="bg-gray-50 px-2.5 border-y border-l rounded-l-md border-border flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">peckr.me/app</span>
                     </div>
                     <Input {...fieldProps} className=" rounded-l-none" wrapperClass="grow" />
