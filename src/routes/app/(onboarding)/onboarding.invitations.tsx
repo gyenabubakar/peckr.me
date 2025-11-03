@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { CrownIcon, XIcon } from 'lucide-react';
 import { Badge } from 'shadcn/badge';
 import { Button } from 'shadcn/button';
@@ -20,6 +20,7 @@ export const Route = createFileRoute('/app/(onboarding)/onboarding/invitations')
 });
 
 function OrgInvitationsPage() {
+  const router = useRouter();
   const form = useForm({
     validators: {
       onBlur: InvitationsSchema,
@@ -133,7 +134,7 @@ function OrgInvitationsPage() {
                                   >
                                     <SelectTrigger
                                       aria-invalid={isInvalid}
-                                      className="!w-[103px] border-0 rounded-l-none border-y border-r rounded-r-md border-border !h-[36.44] py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
+                                      className="!w-[103px] border-0 rounded-l-none border-y border-r rounded-r-md border-border py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
                                     >
                                       <SelectValue placeholder="Role" />
                                     </SelectTrigger>
@@ -172,7 +173,11 @@ function OrgInvitationsPage() {
             )}
           </form.Subscribe>
 
-          <div className="text-center">
+          <div className="flex items-center justify-between">
+            <Button type="button" variant="ghost" onClick={() => router.history.back()}>
+              Go back
+            </Button>
+
             <Button type="button" variant="ghost">
               Skip this
             </Button>

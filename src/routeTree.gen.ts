@@ -17,6 +17,7 @@ import { Route as authLayoutRegisterRouteImport } from './routes/(auth)/_layout.
 import { Route as authLayoutLoginRouteImport } from './routes/(auth)/_layout.login'
 import { Route as authLayoutForgotPasswordRouteImport } from './routes/(auth)/_layout.forgot-password'
 import { Route as ApponboardingOnboardingIndexRouteImport } from './routes/app/(onboarding)/onboarding.index'
+import { Route as ApponboardingOnboardingProRouteImport } from './routes/app/(onboarding)/onboarding.pro'
 import { Route as ApponboardingOnboardingInvitationsRouteImport } from './routes/app/(onboarding)/onboarding.invitations'
 
 const IndexRoute = IndexRouteImport.update({
@@ -60,6 +61,12 @@ const ApponboardingOnboardingIndexRoute =
     path: '/',
     getParentRoute: () => ApponboardingOnboardingRoute,
   } as any)
+const ApponboardingOnboardingProRoute =
+  ApponboardingOnboardingProRouteImport.update({
+    id: '/pro',
+    path: '/pro',
+    getParentRoute: () => ApponboardingOnboardingRoute,
+  } as any)
 const ApponboardingOnboardingInvitationsRoute =
   ApponboardingOnboardingInvitationsRouteImport.update({
     id: '/invitations',
@@ -75,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof authLayoutResetPasswordRoute
   '/app/onboarding': typeof ApponboardingOnboardingRouteWithChildren
   '/app/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
+  '/app/onboarding/pro': typeof ApponboardingOnboardingProRoute
   '/app/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,6 +92,7 @@ export interface FileRoutesByTo {
   '/register': typeof authLayoutRegisterRoute
   '/reset-password': typeof authLayoutResetPasswordRoute
   '/app/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
+  '/app/onboarding/pro': typeof ApponboardingOnboardingProRoute
   '/app/onboarding': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesById {
@@ -96,6 +105,7 @@ export interface FileRoutesById {
   '/(auth)/_layout/reset-password': typeof authLayoutResetPasswordRoute
   '/app/(onboarding)/onboarding': typeof ApponboardingOnboardingRouteWithChildren
   '/app/(onboarding)/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
+  '/app/(onboarding)/onboarding/pro': typeof ApponboardingOnboardingProRoute
   '/app/(onboarding)/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRouteTypes {
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/app/onboarding'
     | '/app/onboarding/invitations'
+    | '/app/onboarding/pro'
     | '/app/onboarding/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/app/onboarding/invitations'
+    | '/app/onboarding/pro'
     | '/app/onboarding'
   id:
     | '__root__'
@@ -128,6 +140,7 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/reset-password'
     | '/app/(onboarding)/onboarding'
     | '/app/(onboarding)/onboarding/invitations'
+    | '/app/(onboarding)/onboarding/pro'
     | '/app/(onboarding)/onboarding/'
   fileRoutesById: FileRoutesById
 }
@@ -195,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApponboardingOnboardingIndexRouteImport
       parentRoute: typeof ApponboardingOnboardingRoute
     }
+    '/app/(onboarding)/onboarding/pro': {
+      id: '/app/(onboarding)/onboarding/pro'
+      path: '/pro'
+      fullPath: '/app/onboarding/pro'
+      preLoaderRoute: typeof ApponboardingOnboardingProRouteImport
+      parentRoute: typeof ApponboardingOnboardingRoute
+    }
     '/app/(onboarding)/onboarding/invitations': {
       id: '/app/(onboarding)/onboarding/invitations'
       path: '/invitations'
@@ -225,6 +245,7 @@ const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
 
 interface ApponboardingOnboardingRouteChildren {
   ApponboardingOnboardingInvitationsRoute: typeof ApponboardingOnboardingInvitationsRoute
+  ApponboardingOnboardingProRoute: typeof ApponboardingOnboardingProRoute
   ApponboardingOnboardingIndexRoute: typeof ApponboardingOnboardingIndexRoute
 }
 
@@ -232,6 +253,7 @@ const ApponboardingOnboardingRouteChildren: ApponboardingOnboardingRouteChildren
   {
     ApponboardingOnboardingInvitationsRoute:
       ApponboardingOnboardingInvitationsRoute,
+    ApponboardingOnboardingProRoute: ApponboardingOnboardingProRoute,
     ApponboardingOnboardingIndexRoute: ApponboardingOnboardingIndexRoute,
   }
 
