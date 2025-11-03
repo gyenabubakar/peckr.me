@@ -17,7 +17,7 @@ export const OrganisationTransformedSchema = v.pipe(
     const formData = new FormData();
 
     formData.set('name', o.name);
-    formData.set('slug', o.name);
+    formData.set('slug', o.slug);
     if (o.logo) formData.set('logo', o.logo);
 
     return formData;

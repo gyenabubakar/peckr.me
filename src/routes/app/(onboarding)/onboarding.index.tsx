@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useForm, useStore } from '@tanstack/react-form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ImageUpIcon } from 'lucide-react';
 import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
@@ -17,6 +17,7 @@ export const Route = createFileRoute('/app/(onboarding)/onboarding/')({
 });
 
 function CreateOrganisationPage() {
+  const navigate = useNavigate();
   const form = useForm({
     validators: {
       onBlur: OrganisationSchema,
@@ -30,8 +31,11 @@ function CreateOrganisationPage() {
     } as OrganisationSchemaInput,
     async onSubmit({ value }) {
       await sleep();
+
       console.log('onSubmit:', value);
-      toast.success('Form submitted successfully');
+      toast.success('Created workspace successfully.');
+
+      await navigate({ to: '/app/onboarding/pro' });
     },
   });
 
@@ -151,7 +155,7 @@ function CreateOrganisationPage() {
                       </Button>
 
                       <p className="text-sm text-muted-foreground">
-                        Any 1:1 image, e.g. 160x160 &bull; Max. 5MB
+                        Any 1:1 image, e.g. 160x160 &bull; Max. 3MB
                       </p>
                     </div>
                   </div>
