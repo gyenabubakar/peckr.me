@@ -17,6 +17,7 @@ import { Route as authLayoutRegisterRouteImport } from './routes/(auth)/_layout.
 import { Route as authLayoutLoginRouteImport } from './routes/(auth)/_layout.login'
 import { Route as authLayoutForgotPasswordRouteImport } from './routes/(auth)/_layout.forgot-password'
 import { Route as ApponboardingOnboardingIndexRouteImport } from './routes/app/(onboarding)/onboarding.index'
+import { Route as ApponboardingOnboardingInvitationsRouteImport } from './routes/app/(onboarding)/onboarding.invitations'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,6 +60,12 @@ const ApponboardingOnboardingIndexRoute =
     path: '/',
     getParentRoute: () => ApponboardingOnboardingRoute,
   } as any)
+const ApponboardingOnboardingInvitationsRoute =
+  ApponboardingOnboardingInvitationsRouteImport.update({
+    id: '/invitations',
+    path: '/invitations',
+    getParentRoute: () => ApponboardingOnboardingRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof authLayoutRegisterRoute
   '/reset-password': typeof authLayoutResetPasswordRoute
   '/app/onboarding': typeof ApponboardingOnboardingRouteWithChildren
+  '/app/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
   '/app/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesByTo {
@@ -75,6 +83,7 @@ export interface FileRoutesByTo {
   '/login': typeof authLayoutLoginRoute
   '/register': typeof authLayoutRegisterRoute
   '/reset-password': typeof authLayoutResetPasswordRoute
+  '/app/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
   '/app/onboarding': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRoutesById {
@@ -86,6 +95,7 @@ export interface FileRoutesById {
   '/(auth)/_layout/register': typeof authLayoutRegisterRoute
   '/(auth)/_layout/reset-password': typeof authLayoutResetPasswordRoute
   '/app/(onboarding)/onboarding': typeof ApponboardingOnboardingRouteWithChildren
+  '/app/(onboarding)/onboarding/invitations': typeof ApponboardingOnboardingInvitationsRoute
   '/app/(onboarding)/onboarding/': typeof ApponboardingOnboardingIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/app/onboarding'
+    | '/app/onboarding/invitations'
     | '/app/onboarding/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/reset-password'
+    | '/app/onboarding/invitations'
     | '/app/onboarding'
   id:
     | '__root__'
@@ -115,6 +127,7 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/register'
     | '/(auth)/_layout/reset-password'
     | '/app/(onboarding)/onboarding'
+    | '/app/(onboarding)/onboarding/invitations'
     | '/app/(onboarding)/onboarding/'
   fileRoutesById: FileRoutesById
 }
@@ -182,6 +195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApponboardingOnboardingIndexRouteImport
       parentRoute: typeof ApponboardingOnboardingRoute
     }
+    '/app/(onboarding)/onboarding/invitations': {
+      id: '/app/(onboarding)/onboarding/invitations'
+      path: '/invitations'
+      fullPath: '/app/onboarding/invitations'
+      preLoaderRoute: typeof ApponboardingOnboardingInvitationsRouteImport
+      parentRoute: typeof ApponboardingOnboardingRoute
+    }
   }
 }
 
@@ -204,11 +224,14 @@ const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
 )
 
 interface ApponboardingOnboardingRouteChildren {
+  ApponboardingOnboardingInvitationsRoute: typeof ApponboardingOnboardingInvitationsRoute
   ApponboardingOnboardingIndexRoute: typeof ApponboardingOnboardingIndexRoute
 }
 
 const ApponboardingOnboardingRouteChildren: ApponboardingOnboardingRouteChildren =
   {
+    ApponboardingOnboardingInvitationsRoute:
+      ApponboardingOnboardingInvitationsRoute,
     ApponboardingOnboardingIndexRoute: ApponboardingOnboardingIndexRoute,
   }
 

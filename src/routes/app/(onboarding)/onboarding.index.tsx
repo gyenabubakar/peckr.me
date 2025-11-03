@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useForm, useStore } from '@tanstack/react-form';
 import { createFileRoute } from '@tanstack/react-router';
-import { UploadCloudIcon } from 'lucide-react';
+import { ImageUpIcon } from 'lucide-react';
 import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
@@ -128,17 +128,17 @@ function CreateOrganisationPage() {
                   />
 
                   <div className="relative w-max h-max flex items-center gap-5">
-                    <div className="size-20 rounded-full border border-border flex items-center justify-center">
-                      {!tempFileURL ? (
-                        <UploadCloudIcon className="size-4" />
-                      ) : (
-                        <img
-                          src={tempFileURL}
-                          className="size-14 rounded-full"
-                          alt="your select logo for your organisation"
-                        />
-                      )}
-                    </div>
+                    {!tempFileURL ? (
+                      <div className="size-20 rounded-lg border border-border flex items-center justify-center">
+                        <ImageUpIcon className="size-7 text-muted-foreground" strokeWidth={1.2} />
+                      </div>
+                    ) : (
+                      <img
+                        src={tempFileURL}
+                        className="size-20 rounded-lg"
+                        alt="your select logo for your organisation"
+                      />
+                    )}
 
                     <div className="space-y-1.5">
                       <Button
@@ -147,11 +147,11 @@ function CreateOrganisationPage() {
                         size="sm"
                         onClick={handleFileInputButton}
                       >
-                        {tempFileURL ? 'Remove image' : 'Upload image'}
+                        {tempFileURL ? 'Remove image' : 'Select image'}
                       </Button>
 
                       <p className="text-sm text-muted-foreground">
-                        Recommended size: 160x160 &bull; Max. 5MB
+                        Any 1:1 image, e.g. 160x160 &bull; Max. 5MB
                       </p>
                     </div>
                   </div>
