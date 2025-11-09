@@ -9,7 +9,7 @@ import { ResetPasswordQueryParams, ResetPasswordSchema } from '~/features/auth/s
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
-export const Route = createFileRoute('/(auth)/_layout/reset-password')({
+export const Route = createFileRoute('/(auth)/_auth/reset-password')({
   component: ResetPasswordPage,
   beforeLoad({ search }) {
     const result = v.safeParse(ResetPasswordQueryParams, search);

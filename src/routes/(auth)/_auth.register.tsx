@@ -15,7 +15,7 @@ import { SocialAuthButtons } from '~/features/auth/ui';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
-export const Route = createFileRoute('/(auth)/_layout/register')({
+export const Route = createFileRoute('/(auth)/_auth/register')({
   component: RouteComponent,
 });
 
