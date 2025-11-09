@@ -1,17 +1,27 @@
 import { tanstackConfig } from '@tanstack/eslint-config';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
 export default defineConfig([
   ...tanstackConfig,
+  react.configs.flat['jsx-runtime'],
+  jsxA11y.flatConfigs.recommended,
   {
-    ignores: ['convex/_generated/*', 'src/_shadcn/*', 'lint-staged.config.js'],
+    ignores: [
+      'convex/_generated/*',
+      'src/_shadcn/*',
+      'lint-staged.config.js',
+      'src/routerTree.gen.ts',
+    ],
   },
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     plugins: {
       react,
+      'react-hooks': reactHooks,
     },
     languageOptions: {
       parserOptions: {
@@ -29,7 +39,33 @@ export default defineConfig([
       },
     },
     rules: {
+      // React Hooks
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'error',
+
+      // JSX & Component Rules
       'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary', 'coerce'] }],
+      'react/jsx-key': 'error',
+      'react/no-array-index-key': 'warn',
+      'react/self-closing-comp': 'error',
+      'react/jsx-no-useless-fragment': 'error',
+      'react/jsx-pascal-case': 'error',
+      'react/no-unstable-nested-components': 'error',
+
+      // Prop & Type Safety
+      'react/jsx-no-target-blank': 'error',
+      'react/no-children-prop': 'error',
+      'react/void-dom-elements-no-children': 'error',
+
+      // Code Style
+      'react/jsx-curly-brace-presence': [
+        'warn',
+        {
+          props: 'never',
+          children: 'never',
+        },
+      ],
+      'react/jsx-boolean-value': ['warn', 'never'],
     },
   },
   {

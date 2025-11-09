@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
-import { WithDotsBackground } from '~/components';
+import { WithDotsBackground } from '~/features/auth/ui';
 
-export const Route = createFileRoute('/(auth)/_layout')({
+export const Route = createFileRoute('/(auth)/_auth')({
   component: AuthLayout,
 });
 

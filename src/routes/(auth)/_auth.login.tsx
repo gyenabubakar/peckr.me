@@ -6,10 +6,10 @@ import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import { LoginSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
-import { sleep } from '~/lib';
+import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
-export const Route = createFileRoute('/(auth)/_layout/login')({
+export const Route = createFileRoute('/(auth)/_auth/login')({
   component: LoginPage,
 });
 
@@ -51,7 +51,7 @@ function LoginPage() {
                     placeholder="gyen@peckr.me"
                     autoComplete="email"
                   />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -70,7 +70,7 @@ function LoginPage() {
                   </div>
 
                   <Input {...fieldProps} type="password" autoComplete="current-password" />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}

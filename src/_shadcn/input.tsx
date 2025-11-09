@@ -2,13 +2,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { cn } from 'shadcn/lib/utils';
-import { SimpleTooltip } from '~/components';
+import { Tooltip, TooltipContent, TooltipTrigger } from 'shadcn/tooltip';
+import type { ClassValue } from 'clsx';
 
 interface Props extends React.ComponentProps<'input'> {
   canToggleVisibility?: boolean;
+  wrapperClass?: ClassValue;
 }
 
-function Input({ className, type, canToggleVisibility = true, ...props }: Props) {
+function Input({ className, type, canToggleVisibility = true, wrapperClass, ...props }: Props) {
   const [revealed, setRevealed] = useState(false);
 
   const inputType = (() => {
@@ -18,7 +20,7 @@ function Input({ className, type, canToggleVisibility = true, ...props }: Props)
   })();
 
   return (
-    <div className="relative">
+    <div className={cn('relative', wrapperClass)}>
       <input
         type={inputType}
         data-slot="input"
@@ -33,16 +35,21 @@ function Input({ className, type, canToggleVisibility = true, ...props }: Props)
       />
 
       {type === 'password' && canToggleVisibility ? (
-        <SimpleTooltip title={`${revealed ? 'Hide' : 'Show'} password`}>
-          <button
-            type="button"
-            className="absolute right-2 top-1/2 -translate-y-1/2"
-            onClick={() => setRevealed((v) => !v)}
-            aria-label={revealed ? 'Hide password' : 'Show password'}
-          >
-            {revealed ? <EyeOffIcon strokeWidth={1.2} /> : <EyeIcon strokeWidth={1.2} />}
-          </button>
-        </SimpleTooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className="absolute right-2 top-1/2 -translate-y-1/2"
+              onClick={() => setRevealed((v) => !v)}
+              aria-label={revealed ? 'Hide password' : 'Show password'}
+            >
+              {revealed ? <EyeOffIcon strokeWidth={1.2} /> : <EyeIcon strokeWidth={1.2} />}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{revealed ? 'Hide' : 'Show'} password</p>
+          </TooltipContent>
+        </Tooltip>
       ) : null}
     </div>
   );
