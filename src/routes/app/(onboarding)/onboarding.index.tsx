@@ -2,11 +2,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useForm, useStore } from '@tanstack/react-form';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ImageUpIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import type { ChangeEvent } from 'react';
+import { ONBOARDING_PAGE_TRANSITION } from '~/features/onboarding/constants';
 import { OrganisationSchema } from '~/features/onboarding/schemas';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
@@ -70,7 +72,7 @@ function CreateOrganisationPage() {
   }
 
   return (
-    <main>
+    <motion.main {...ONBOARDING_PAGE_TRANSITION}>
       <div className="mb-8">
         <h1>
           Create your <span>Peckr</span> organisation.
@@ -179,6 +181,6 @@ function CreateOrganisationPage() {
           )}
         </form.Subscribe>
       </form>
-    </main>
+    </motion.main>
   );
 }

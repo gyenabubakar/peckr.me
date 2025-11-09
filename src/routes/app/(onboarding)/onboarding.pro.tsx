@@ -1,4 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { motion } from 'motion/react';
+import { ONBOARDING_PAGE_TRANSITION } from '~/features/onboarding/constants';
 import { PricingCards } from '~/features/subscriptions/ui';
 
 export const Route = createFileRoute('/app/(onboarding)/onboarding/pro')({
@@ -9,7 +11,7 @@ function ProPage() {
   const navigate = useNavigate();
 
   return (
-    <main>
+    <motion.main {...ONBOARDING_PAGE_TRANSITION}>
       <div className="mb-12 text-center">
         <h1 className="text-3xl font-bold mb-3">
           Choose your <span>Peckr</span> plan.
@@ -25,6 +27,6 @@ function ProPage() {
           onProPlanClick={() => navigate({ to: '/app/onboarding/invitations' })}
         />
       </div>
-    </main>
+    </motion.main>
   );
 }

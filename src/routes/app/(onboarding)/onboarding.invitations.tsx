@@ -7,11 +7,11 @@ import { Badge } from 'shadcn/badge';
 import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup } from 'shadcn/field';
 import { Input } from 'shadcn/input';
-import { cn } from 'shadcn/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'shadcn/select';
 import { toast } from 'sonner';
 import { SimpleTooltip } from '~/components';
 import { INVITABLE_ROLES } from '~/features/auth/constants';
+import { ONBOARDING_PAGE_TRANSITION } from '~/features/onboarding/constants';
 import { InvitationsSchema } from '~/features/onboarding/schemas';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
@@ -59,7 +59,7 @@ function OrgInvitationsPage() {
   }
 
   return (
-    <main>
+    <motion.main {...ONBOARDING_PAGE_TRANSITION}>
       <div className="mb-8">
         <div className="text-center mb-2">
           <Badge variant="secondary">
@@ -101,9 +101,7 @@ function OrgInvitationsPage() {
                           transition={{ duration: 0.2 }}
                         >
                           <div className="relative w-full flex">
-                            <div
-                              className={cn('absolute w-[92px] flex items-center gap-1 -right-24')}
-                            >
+                            <div className="absolute w-[92px] flex items-center gap-1 -right-24">
                               {renderIf(
                                 index > 0,
                                 <SimpleTooltip title="Remove this invite">
@@ -233,6 +231,6 @@ function OrgInvitationsPage() {
           </div>
         </div>
       </form>
-    </main>
+    </motion.main>
   );
 }
