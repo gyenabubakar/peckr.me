@@ -8,7 +8,7 @@ import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import type { ChangeEvent } from 'react';
 import { OrganisationSchema } from '~/features/onboarding/schemas';
-import { sleep } from '~/lib';
+import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 import type { OrganisationSchemaInput } from '~/features/onboarding/schemas';
 
@@ -87,7 +87,7 @@ function CreateOrganisationPage() {
                 <Field data-invalid={isInvalid}>
                   <FieldLabel htmlFor={field.name}>Organisation name</FieldLabel>
                   <Input {...fieldProps} />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -107,7 +107,7 @@ function CreateOrganisationPage() {
                     <Input {...fieldProps} className=" rounded-l-none" wrapperClass="grow" />
                   </div>
 
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -160,7 +160,7 @@ function CreateOrganisationPage() {
                     </div>
                   </div>
 
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}

@@ -6,7 +6,7 @@ import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import * as v from 'valibot';
 import { ResetPasswordQueryParams, ResetPasswordSchema } from '~/features/auth/schemas';
-import { sleep } from '~/lib';
+import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
 export const Route = createFileRoute('/(auth)/_layout/reset-password')({
@@ -63,7 +63,7 @@ function ResetPasswordPage() {
                 <Field data-invalid={isInvalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input {...fieldProps} type="password" autoComplete="new-password" />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -76,7 +76,7 @@ function ResetPasswordPage() {
                 <Field data-invalid={isInvalid}>
                   <FieldLabel htmlFor={field.name}>Repeat password</FieldLabel>
                   <Input {...fieldProps} type="password" autoComplete="new-password" />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}

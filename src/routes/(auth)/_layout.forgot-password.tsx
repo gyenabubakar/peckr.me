@@ -5,7 +5,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import { ForgotPasswordSchema } from '~/features/auth/schemas';
-import { sleep } from '~/lib';
+import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
 export const Route = createFileRoute('/(auth)/_layout/forgot-password')({
@@ -55,7 +55,7 @@ function ForgotPasswordPage() {
                     placeholder="gyen@peckr.me"
                     autoComplete="email"
                   />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}

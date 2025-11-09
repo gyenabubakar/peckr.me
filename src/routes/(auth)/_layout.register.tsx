@@ -12,7 +12,7 @@ import { useCountdown } from 'usehooks-ts';
 import { OTP_LENGTH } from '~/features/auth/constants';
 import { EmailVerificationSchema, RegisterSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
-import { sleep } from '~/lib';
+import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
 export const Route = createFileRoute('/(auth)/_layout/register')({
@@ -74,7 +74,7 @@ function RegisterPage({ setStage }: RegisterPageProps) {
                     placeholder="gyen@peckr.me"
                     autoComplete="off"
                   />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -87,7 +87,7 @@ function RegisterPage({ setStage }: RegisterPageProps) {
                 <Field data-invalid={isInvalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                   <Input {...fieldProps} type="password" autoComplete="off" />
-                  {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                  {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );
             }}
@@ -184,7 +184,7 @@ function EmailVerification() {
                     </InputOTPGroup>
                   </InputOTP>
                 </div>
-                {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
+                {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
               </Field>
             );
           }}
@@ -210,7 +210,7 @@ function EmailVerification() {
             className={cn('disabled:cursor-not-allowed', count === 0 && 'text-primary')}
             onClick={resendOTP}
           >
-            Resend {count !== 0 ? <span>({count}s)</span> : null}
+            Resend {renderIf(count !== 0, <span>({count}s)</span>)}
           </button>
           .
         </p>
