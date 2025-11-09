@@ -13,3 +13,5 @@ count.txt
 todos.json
 
 .idea/
+
+src/routeTree.gen.ts
