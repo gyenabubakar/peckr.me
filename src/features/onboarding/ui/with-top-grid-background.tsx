@@ -6,7 +6,7 @@ interface Props {
 
 export function WithTopGridBackground({ children }: Props) {
   return (
-    <div className="h-screen w-screen relative">
+    <div className="h-full w-full relative">
       {/* Dashed Top Fade Grid */}
       <div
         className="absolute inset-0 z-0"

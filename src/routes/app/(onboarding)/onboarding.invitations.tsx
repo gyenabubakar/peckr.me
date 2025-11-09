@@ -1,10 +1,13 @@
-import { useForm } from '@tanstack/react-form';
+import { useEffect } from 'react';
+import { useForm, useStore } from '@tanstack/react-form';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { CrownIcon, XIcon } from 'lucide-react';
+import { CrownIcon, PlusIcon, XIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Badge } from 'shadcn/badge';
 import { Button } from 'shadcn/button';
-import { Field, FieldGroup } from 'shadcn/field';
+import { Field, FieldError, FieldGroup } from 'shadcn/field';
 import { Input } from 'shadcn/input';
+import { cn } from 'shadcn/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'shadcn/select';
 import { toast } from 'sonner';
 import { SimpleTooltip } from '~/components';
@@ -43,6 +46,18 @@ function OrgInvitationsPage() {
     },
   });
 
+  const errors = useStore(form.store, (s) => s.errors);
+
+  useEffect(() => {
+    console.log('errors:', errors);
+  }, [errors]);
+
+  function handleRemoveInvite(index: number) {
+    const currentInvites = form.state.values.invites;
+    const updatedInvites = currentInvites.filter((_, i) => i !== index);
+    form.setFieldValue('invites', updatedInvites);
+  }
+
   return (
     <main>
       <div className="mb-8">
@@ -64,100 +79,134 @@ function OrgInvitationsPage() {
 
       <form onSubmit={getSubmitHandler(form)}>
         <FieldGroup>
-          <form.Field name="invites" mode="array">
-            {(field) => (
-              <div>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium">Email</p>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      field.pushValue({
-                        id: crypto.randomUUID(),
-                        role: 'Member',
-                        email: '',
-                      })
-                    }
-                  >
-                    Add invite
-                  </Button>
-                </div>
+          <div>
+            <p className="text-sm font-medium">Email</p>
 
-                <div className="grid gap-2">
-                  {field.state.value.map((_, index) => {
-                    return (
-                      <div key={index} className="relative w-full flex">
-                        {renderIf(
-                          index > 0,
-                          <SimpleTooltip title="Remove this invite">
-                            <Button
-                              type="button"
-                              variant="outline:destructive"
-                              className="absolute -right-12"
-                              aria-label="Remove this invite"
-                              onClick={() => field.removeValue(index)}
+            <div className="grid gap-2">
+              <AnimatePresence mode="popLayout">
+                <form.Subscribe selector={(state) => state.values.invites}>
+                  {(invites) =>
+                    invites.map((invite, index) => {
+                      // TODO: fix the peculiar bug when using `invite.id` as key.
+                      // the bug: after adding multiple entries, removing an entry
+                      // in the middle of the array sets the last entries' role to an empty string,
+                      // which causes a form error because '' isn't an acceptable role.
+                      return (
+                        <motion.div
+                          key={invite.id}
+                          layout
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="relative w-full flex">
+                            <div
+                              className={cn('absolute w-[92px] flex items-center gap-1 -right-24')}
                             >
-                              <XIcon />
-                            </Button>
-                          </SimpleTooltip>,
-                        )}
-
-                        <form.Field name={`invites[${index}].email`}>
-                          {(inviteField) => {
-                            const { isInvalid, fieldProps } = getFieldProps(inviteField);
-                            return (
-                              <Field data-invalid={isInvalid}>
-                                <Input
-                                  {...fieldProps}
-                                  className="rounded-r-none"
-                                  wrapperClass="grow"
-                                />
-                              </Field>
-                            );
-                          }}
-                        </form.Field>
-
-                        <div className="bg-gray-50 flex items-center justify-center">
-                          <form.Field name={`invites[${index}].role`}>
-                            {(inviteField) => {
-                              const { isInvalid } = getFieldProps(inviteField);
-                              return (
-                                <Field orientation="responsive" data-invalid={isInvalid}>
-                                  <Select
-                                    name={inviteField.name}
-                                    value={inviteField.state.value}
-                                    onValueChange={(role) =>
-                                      inviteField.handleChange(role as InvitableRole)
+                              {renderIf(
+                                index > 0,
+                                <SimpleTooltip title="Remove this invite">
+                                  <Button
+                                    type="button"
+                                    variant="outline:destructive"
+                                    aria-label="Remove this invite"
+                                    onClick={() => handleRemoveInvite(index)}
+                                  >
+                                    <XIcon />
+                                  </Button>
+                                </SimpleTooltip>,
+                              )}
+                              {renderIf(
+                                index === 0,
+                                <SimpleTooltip title="Add an invite">
+                                  <Button
+                                    type="button"
+                                    variant="outline:green"
+                                    aria-label="Add an invite"
+                                    onClick={() =>
+                                      form.setFieldValue('invites', [
+                                        ...invites,
+                                        {
+                                          id: crypto.randomUUID(),
+                                          role: 'Member',
+                                          email: '',
+                                        },
+                                      ])
                                     }
                                   >
-                                    <SelectTrigger
-                                      aria-invalid={isInvalid}
-                                      className="!w-[103px] border-0 rounded-l-none border-y border-r rounded-r-md border-border py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
-                                    >
-                                      <SelectValue placeholder="Role" />
-                                    </SelectTrigger>
-                                    <SelectContent position="item-aligned">
-                                      {INVITABLE_ROLES.map((role) => (
-                                        <SelectItem key={role} value={role}>
-                                          {role}
-                                        </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
-                                </Field>
+                                    <PlusIcon />
+                                  </Button>
+                                </SimpleTooltip>,
+                              )}
+                            </div>
+
+                            <form.Field name={`invites[${index}].email`}>
+                              {(inviteField) => {
+                                const { isInvalid, fieldProps } = getFieldProps(inviteField, '');
+                                return (
+                                  <Field data-invalid={isInvalid}>
+                                    <Input
+                                      {...fieldProps}
+                                      className="rounded-r-none"
+                                      wrapperClass="grow"
+                                    />
+                                  </Field>
+                                );
+                              }}
+                            </form.Field>
+
+                            <div className="bg-gray-50 flex items-center justify-center">
+                              <form.Field name={`invites[${index}].role`}>
+                                {(inviteField) => {
+                                  const { isInvalid } = getFieldProps(inviteField);
+                                  return (
+                                    <Field orientation="responsive" data-invalid={isInvalid}>
+                                      <Select
+                                        name={inviteField.name}
+                                        value={inviteField.state.value}
+                                        onValueChange={(role) =>
+                                          inviteField.handleChange(role as InvitableRole)
+                                        }
+                                      >
+                                        <SelectTrigger
+                                          aria-invalid={isInvalid}
+                                          className="!w-[103px] border-0 rounded-l-none border-y border-r rounded-r-md border-border py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
+                                        >
+                                          <SelectValue placeholder="Role" />
+                                        </SelectTrigger>
+                                        <SelectContent position="item-aligned">
+                                          {INVITABLE_ROLES.map((role) => (
+                                            <SelectItem key={role} value={role}>
+                                              {role}
+                                            </SelectItem>
+                                          ))}
+                                        </SelectContent>
+                                      </Select>
+                                    </Field>
+                                  );
+                                }}
+                              </form.Field>
+                            </div>
+                          </div>
+
+                          <form.Field name={`invites[${index}].email`}>
+                            {(inviteField) => {
+                              const { isInvalid } = getFieldProps(inviteField);
+                              return renderIf(
+                                isInvalid,
+                                <FieldError errors={inviteField.state.meta.errors} />,
                               );
                             }}
                           </form.Field>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </form.Field>
+                        </motion.div>
+                      );
+                    })
+                  }
+                </form.Subscribe>
+              </AnimatePresence>
+            </div>
+          </div>
         </FieldGroup>
 
         <div className="space-y-3">

@@ -13,7 +13,7 @@ function OnboardingLayout() {
 
   return (
     <WithTopGridBackground>
-      <div className="grid gap-[150px] pb-32">
+      <div className="space-y-[150px] pb-32">
         <div className="w-full flex items-center justify-center py-4">
           <img src="/logo.svg" alt="Peckr logo" className="w-24" />
         </div>

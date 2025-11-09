@@ -4,7 +4,7 @@ import { EmailSchema } from '~/features/auth/schemas';
 
 const InviteSchema = v.object({
   id: v.pipe(v.string(), v.uuid()),
-  email: v.union([EmailSchema, v.pipe(v.string(), v.trim(), v.maxLength(0))]),
+  email: v.pipe(v.string(), v.trim(), v.union([v.literal(''), EmailSchema])),
   role: v.picklist(INVITABLE_ROLES),
 });
 
