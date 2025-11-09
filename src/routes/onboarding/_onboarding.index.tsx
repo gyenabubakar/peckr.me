@@ -14,7 +14,7 @@ import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 import type { OrganisationSchemaInput } from '~/features/onboarding/schemas';
 
-export const Route = createFileRoute('/app/(onboarding)/onboarding/')({
+export const Route = createFileRoute('/onboarding/_onboarding/')({
   component: CreateOrganisationPage,
 });
 
@@ -37,7 +37,7 @@ function CreateOrganisationPage() {
       console.log('onSubmit:', value);
       toast.success('Created workspace successfully.');
 
-      await navigate({ to: '/app/onboarding/pro' });
+      await navigate({ to: '/onboarding/pro' });
     },
   });
 
@@ -104,7 +104,7 @@ function CreateOrganisationPage() {
 
                   <div className="relative w-full flex">
                     <div className="bg-gray-50 px-2.5 border-y border-l rounded-l-md border-border flex items-center justify-center">
-                      <span className="text-sm text-muted-foreground">peckr.me/app</span>
+                      <span className="text-sm text-muted-foreground">peckr.me/app/</span>
                     </div>
                     <Input {...fieldProps} className=" rounded-l-none" wrapperClass="grow" />
                   </div>

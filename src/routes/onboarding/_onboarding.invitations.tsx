@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { useForm, useStore } from '@tanstack/react-form';
+import { useForm } from '@tanstack/react-form';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { CrownIcon, PlusIcon, XIcon } from 'lucide-react';
+import { PlusIcon, XIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Badge } from 'shadcn/badge';
 import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup } from 'shadcn/field';
 import { Input } from 'shadcn/input';
@@ -13,12 +11,13 @@ import { SimpleTooltip } from '~/components';
 import { INVITABLE_ROLES } from '~/features/auth/constants';
 import { ONBOARDING_PAGE_TRANSITION } from '~/features/onboarding/constants';
 import { InvitationsSchema } from '~/features/onboarding/schemas';
+import { ProRequiredBadge } from '~/features/onboarding/ui';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 import type { InvitableRole } from '~/features/auth/constants';
 import type { InviteSchemaInput } from '~/features/onboarding/schemas';
 
-export const Route = createFileRoute('/app/(onboarding)/onboarding/invitations')({
+export const Route = createFileRoute('/onboarding/_onboarding/invitations')({
   component: OrgInvitationsPage,
 });
 
@@ -43,14 +42,9 @@ function OrgInvitationsPage() {
       await sleep();
       console.log('onSubmit:', value);
       toast.success('Form submitted successfully');
+      router.navigate({ to: `/app/$slug`, params: { slug: 'gyen' } });
     },
   });
-
-  const errors = useStore(form.store, (s) => s.errors);
-
-  useEffect(() => {
-    console.log('errors:', errors);
-  }, [errors]);
 
   function handleRemoveInvite(index: number) {
     const currentInvites = form.state.values.invites;
@@ -61,13 +55,7 @@ function OrgInvitationsPage() {
   return (
     <motion.main {...ONBOARDING_PAGE_TRANSITION}>
       <div className="mb-8">
-        <div className="text-center mb-2">
-          <Badge variant="secondary">
-            <CrownIcon />
-            Pro plan required
-          </Badge>
-        </div>
-
+        <ProRequiredBadge />
         <h1>
           Invite people to your <span>Peckr</span> organisation.
         </h1>
@@ -86,14 +74,14 @@ function OrgInvitationsPage() {
               <AnimatePresence mode="popLayout">
                 <form.Subscribe selector={(state) => state.values.invites}>
                   {(invites) =>
-                    invites.map((invite, index) => {
+                    invites.map((_, index) => {
                       // TODO: fix the peculiar bug when using `invite.id` as key.
                       // the bug: after adding multiple entries, removing an entry
                       // in the middle of the array sets the last entries' role to an empty string,
                       // which causes a form error because '' isn't an acceptable role.
                       return (
                         <motion.div
-                          key={invite.id}
+                          key={index}
                           layout
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -169,7 +157,7 @@ function OrgInvitationsPage() {
                                       >
                                         <SelectTrigger
                                           aria-invalid={isInvalid}
-                                          className="!w-[103px] border-0 rounded-l-none border-y border-r rounded-r-md border-border py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
+                                          className="w-[103px]! border-0 rounded-l-none border-y border-r rounded-r-md border-border py-0 focus-visible:shadow-none focus-visible:ring-0 focus-visible:border-border"
                                         >
                                           <SelectValue placeholder="Role" />
                                         </SelectTrigger>
@@ -225,7 +213,11 @@ function OrgInvitationsPage() {
               Go back
             </Button>
 
-            <Button type="button" variant="ghost">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => router.navigate({ to: `/app/$slug`, params: { slug: 'gyen' } })}
+            >
               Skip this
             </Button>
           </div>

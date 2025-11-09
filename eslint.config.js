@@ -10,7 +10,12 @@ export default defineConfig([
   react.configs.flat['jsx-runtime'],
   jsxA11y.flatConfigs.recommended,
   {
-    ignores: ['convex/_generated/*', 'src/_shadcn/*', 'lint-staged.config.js'],
+    ignores: [
+      'convex/_generated/*',
+      'src/_shadcn/*',
+      'lint-staged.config.js',
+      'src/routerTree.gen.ts',
+    ],
   },
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],

@@ -6,7 +6,7 @@ import { Button } from 'shadcn/button';
 import { cn } from 'shadcn/lib/utils';
 import { WithTopGridBackground } from '~/features/onboarding/ui';
 
-export const Route = createFileRoute('/app/(onboarding)/onboarding')({
+export const Route = createFileRoute('/onboarding/_onboarding')({
   component: OnboardingLayout,
 });
 
@@ -16,9 +16,9 @@ function OnboardingLayout() {
 
   useEffect(() => {
     void Promise.allSettled([
-      router.loadRouteChunk(router.routesByPath['/app/onboarding/']),
-      router.loadRouteChunk(router.routesByPath['/app/onboarding/pro']),
-      router.loadRouteChunk(router.routesByPath['/app/onboarding/invitations']),
+      router.loadRouteChunk(router.routesByPath['/onboarding/']),
+      router.loadRouteChunk(router.routesByPath['/onboarding/pro']),
+      router.loadRouteChunk(router.routesByPath['/onboarding/invitations']),
     ]);
   }, [router]);
 
@@ -32,7 +32,7 @@ function OnboardingLayout() {
         <div
           className={cn(
             'mx-auto [&_h1]:font-bold [&_h1]:text-2xl [&_h1]:text-center [&_h1]:mb-2 [&_h1>span]:text-primary [&_h1+p]:font-medium [&_h1+p]:text-center [&_h1+p]:text-muted-foreground',
-            pathname !== '/app/onboarding/pro' && 'max-w-[400px]',
+            pathname !== '/onboarding/pro' && 'max-w-[400px]',
           )}
         >
           <AnimatePresence mode="wait">
