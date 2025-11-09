@@ -13,7 +13,7 @@ export function WithDotsBackground({ children = null, className }: Props) {
       {/* Noise Texture (Darker Dots) Background */}
       <div
         data-patterns
-        className="absolute inset-0 z-0 opacity-25"
+        className="absolute inset-0 z-0 opacity-30"
         style={{
           background: '#ffffff',
           backgroundImage:

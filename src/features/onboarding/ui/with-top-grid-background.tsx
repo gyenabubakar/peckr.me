@@ -9,7 +9,7 @@ export function WithTopGridBackground({ children }: Props) {
     <div className="h-screen w-screen relative">
       {/* Dashed Top Fade Grid */}
       <div
-        className="absolute inset-0 z-0 -top-4/12"
+        className="absolute inset-0 z-0"
         style={{
           backgroundImage: `
         linear-gradient(to right, #e7e5e4 1px, transparent 1px),
