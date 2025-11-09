@@ -209,7 +209,11 @@ function OrgInvitationsPage() {
           </form.Subscribe>
 
           <div className="flex items-center justify-between">
-            <Button type="button" variant="ghost" onClick={() => router.history.back()}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => router.navigate({ to: '/onboarding/subdomain', replace: true })}
+            >
               Go back
             </Button>
 

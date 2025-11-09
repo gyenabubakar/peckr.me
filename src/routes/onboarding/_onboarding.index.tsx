@@ -142,7 +142,7 @@ function CreateOrganisationPage() {
                       <img
                         src={tempFileURL}
                         className="size-20 rounded-lg"
-                        alt="your select logo for your organisation"
+                        alt="your selected logo for your organisation"
                       />
                     )}
 

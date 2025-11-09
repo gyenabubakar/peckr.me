@@ -18,6 +18,7 @@ function OnboardingLayout() {
     void Promise.allSettled([
       router.loadRouteChunk(router.routesByPath['/onboarding/']),
       router.loadRouteChunk(router.routesByPath['/onboarding/pro']),
+      router.loadRouteChunk(router.routesByPath['/onboarding/subdomain']),
       router.loadRouteChunk(router.routesByPath['/onboarding/invitations']),
     ]);
   }, [router]);
