@@ -18,10 +18,10 @@ import type { InvitableRole } from '~/features/auth/constants';
 import type { InviteSchemaInput } from '~/features/onboarding/schemas';
 
 export const Route = createFileRoute('/onboarding/_onboarding/invitations')({
-  component: OrgInvitationsPage,
+  component: SpaceInvitationsPage,
 });
 
-function OrgInvitationsPage() {
+function SpaceInvitationsPage() {
   const router = useRouter();
   const form = useForm({
     validators: {
@@ -57,11 +57,11 @@ function OrgInvitationsPage() {
       <div className="mb-8">
         <ProRequiredBadge />
         <h1>
-          Invite people to your <span>Peckr</span> organisation.
+          Invite people to your <span>Peckr</span> space.
         </h1>
         <p>
-          Give us a list of people who should be part of your organisation. Invitations sent to them
-          will be valid for 7 days.
+          Give us a list of people who should be part of your space. Invitations sent to them will
+          be valid for 7 days.
         </p>
       </div>
 

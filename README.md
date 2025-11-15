@@ -129,22 +129,59 @@ src/features/[feature-name]/
 
 **Interactive mode** (with `--config`):
 
-The script will prompt you for each folder/file:
+The script will display an interactive checkbox menu where you can navigate with arrow keys and select with space:
 
 ```
-📋 Select which folders/files to include (y/N):
+? Select folders to include (use ↑/↓ and space to toggle):
+  ◉ ui/
+  ◉ hooks/
+  ◯ lib/
+  ◉ schemas/
+  ◉ types/
+  ◉ rpc/
 
-  Include ui/ folder? (Y/n):
-  Include hooks/ folder? (Y/n):
-  Include schemas/ folder? (Y/n):
-  Include types/ folder? (Y/n):
-  Include rpc/ folder? (Y/n):
-  Include constants.ts file? (Y/n):
+? Select files to include (use ↑/↓ and space to toggle):
+  ◉ constants.ts
 ```
 
-Press Enter to accept (default is Yes), or type `n` to skip.
+- Use **↑/↓** arrow keys to navigate
+- Press **Space** to toggle selection
+- Press **Enter** to confirm
+- Press **Ctrl+C** to cancel (no folders will be created)
 
 All files are created empty, providing a clean starting point for your feature development while maintaining the established architectural patterns.
+
+#### Editing Existing Features
+
+If you try to create a feature that already exists, the script will:
+
+1. Display a **colored warning box** showing the feature already exists
+2. List all **existing folders/files** in the feature
+3. Show **available folders/files** that can still be added
+4. Prompt you to add the missing items interactively
+
+Example output:
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│ ⚠️  Feature "auth" already exists                                    │
+└──────────────────────────────────────────────────────────────────────┘
+
+📦 Existing structure:
+  ✓ ui/
+  ✓ hooks/
+  ✓ schemas/
+  ✓ constants.ts
+
+📋 Available to add:
+  ○ lib/
+  ○ types/
+  ○ rpc/
+
+? Would you like to add missing folders/files? (Y/n)
+```
+
+This allows you to incrementally add folders/files to existing features without recreating them. You cannot remove existing folders/files through this script - only add new ones.
 
 ### Key Principles
 

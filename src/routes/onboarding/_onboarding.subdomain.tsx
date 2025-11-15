@@ -40,11 +40,11 @@ function SubDomainPage() {
         <ProRequiredBadge />
 
         <h1>
-          Pick a subdomain for your <span className="text-primary">Peckr</span> organisation.
+          Pick a subdomain for your <span className="text-primary">Peckr</span> space.
         </h1>
         <p>
-          Choose a subdomain that makes it easy for your team to identify your organisation. In the
-          future, you'll be able to add a custom domain to boost trust.
+          Choose a subdomain that makes it easy for your team to identify your space. In the future,
+          you'll be able to add a custom domain to boost trust.
         </p>
       </div>
 

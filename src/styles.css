@@ -126,7 +126,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    @apply text-foreground;
+    @apply bg-background text-foreground;
+
+    &:has([data-space-layout]) {
+      @apply bg-stone-200;
+    }
   }
 
   a,

@@ -9,28 +9,28 @@ import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
 import type { ChangeEvent } from 'react';
 import { ONBOARDING_PAGE_TRANSITION } from '~/features/onboarding/constants';
-import { OrganisationSchema } from '~/features/onboarding/schemas';
+import { SpaceSchema } from '~/features/onboarding/schemas';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
-import type { OrganisationSchemaInput } from '~/features/onboarding/schemas';
+import type { SpaceSchemaInput } from '~/features/onboarding/schemas';
 
 export const Route = createFileRoute('/onboarding/_onboarding/')({
-  component: CreateOrganisationPage,
+  component: CreateSpacePage,
 });
 
-function CreateOrganisationPage() {
+function CreateSpacePage() {
   const navigate = useNavigate();
   const form = useForm({
     validators: {
-      onBlur: OrganisationSchema,
-      onChange: OrganisationSchema,
-      onSubmit: OrganisationSchema,
+      onBlur: SpaceSchema,
+      onChange: SpaceSchema,
+      onSubmit: SpaceSchema,
     },
     defaultValues: {
       name: '',
       slug: '',
       logo: null,
-    } as OrganisationSchemaInput,
+    } as SpaceSchemaInput,
     async onSubmit({ value }) {
       await sleep();
 
@@ -75,7 +75,7 @@ function CreateOrganisationPage() {
     <motion.main {...ONBOARDING_PAGE_TRANSITION}>
       <div className="mb-8">
         <h1>
-          Create your <span>Peckr</span> organisation.
+          Create your <span>Peckr</span> space.
         </h1>
         <p>Set up a shared space to manage your links with your team.</p>
       </div>
@@ -87,7 +87,7 @@ function CreateOrganisationPage() {
               const { isInvalid, fieldProps } = getFieldProps(field);
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Organisation name</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Space name</FieldLabel>
                   <Input {...fieldProps} />
                   {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
@@ -100,7 +100,7 @@ function CreateOrganisationPage() {
               const { isInvalid, fieldProps } = getFieldProps(field);
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Organisation slug</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Space slug</FieldLabel>
 
                   <div className="relative w-full flex">
                     <div className="bg-gray-50 px-2.5 border-y border-l rounded-l-md border-border flex items-center justify-center">
@@ -120,7 +120,7 @@ function CreateOrganisationPage() {
               const { isInvalid } = getFieldProps(field);
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Organisation logo</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Space logo</FieldLabel>
 
                   <input
                     ref={fileInputRef}
@@ -142,7 +142,7 @@ function CreateOrganisationPage() {
                       <img
                         src={tempFileURL}
                         className="size-20 rounded-lg"
-                        alt="your selected logo for your organisation"
+                        alt="your selected logo for your space"
                       />
                     )}
 
@@ -176,7 +176,7 @@ function CreateOrganisationPage() {
               loading={isSubmitting}
               disabled={!canSubmit || isSubmitting}
             >
-              Create organisation
+              Create space
             </Button>
           )}
         </form.Subscribe>

@@ -82,6 +82,8 @@ export default defineConfig([
 
       'sort-imports': 'off',
       'import/order': 'off',
+
+      'react/no-unstable-nested-components': 'off',
     },
   },
 ]);
