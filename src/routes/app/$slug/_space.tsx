@@ -74,8 +74,9 @@ function SpaceDashboardLayout() {
               </div>
 
               <div data-name="account" className="">
+                {/* TODO: Replace the hardcoded name with real data after implementing auth */}
                 <Avatar className="size-10">
-                  <AvatarImage src="" alt="<user name here>" />
+                  <AvatarImage src="" alt="John Doe's avatar" />
                   <AvatarFallback className="rounded-md">{getInitials('John Doe')}</AvatarFallback>
                 </Avatar>
               </div>
@@ -108,7 +109,7 @@ function SpaceDashboardLayout() {
                                     preload="intent"
                                   >
                                     <item.icon />
-                                    <span className="text-base">{item.text}</span>
+                                    <span className="text-sm">{item.text}</span>
                                   </Link>
                                 </SidebarMenuButton>
                               </SidebarMenuItem>
@@ -124,7 +125,7 @@ function SpaceDashboardLayout() {
           </div>
         </Sidebar>
 
-        <div className="ml-[calc(var(--sidebar-width)+41.5px+10px)] py-2 pr-2">
+        <div className="ml-[calc(var(--sidebar-width)+42px+8px)] py-2 pr-2">
           <main className="bg-white rounded-md min-h-svh">
             <Outlet />
           </main>

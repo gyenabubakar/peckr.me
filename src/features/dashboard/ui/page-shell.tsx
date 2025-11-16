@@ -14,7 +14,7 @@ export function PageShell({ children, leading, trailing }: Props) {
         <div className="[&_span]:font-semibold [&_span]:text-xl">{leading()}</div>
         {renderIf(trailing, <div>{trailing!()}</div>)}
       </header>
-      <section className="py-3 px-6">{children}</section>
+      <section className="p-6">{children}</section>
     </>
   );
 }
