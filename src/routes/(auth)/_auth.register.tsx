@@ -9,6 +9,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from 'shadcn/input-otp';
 import { cn } from 'shadcn/lib/utils';
 import { toast } from 'sonner';
 import { useCountdown } from 'usehooks-ts';
+import { PasswordInput } from '~/components';
 import { OTP_LENGTH } from '~/features/auth/constants';
 import { EmailVerificationSchema, RegisterSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
@@ -86,7 +87,7 @@ function RegisterPage({ setStage }: RegisterPageProps) {
               return (
                 <Field data-invalid={isInvalid}>
                   <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                  <Input {...fieldProps} type="password" autoComplete="off" />
+                  <PasswordInput {...fieldProps} autoComplete="new-password" />
                   {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );

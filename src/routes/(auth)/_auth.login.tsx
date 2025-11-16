@@ -4,6 +4,7 @@ import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
+import { PasswordInput } from '~/components';
 import { LoginSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
 import { renderIf, sleep } from '~/lib';
@@ -69,7 +70,8 @@ function LoginPage() {
                     </Link>
                   </div>
 
-                  <Input {...fieldProps} type="password" autoComplete="current-password" />
+                  <PasswordInput {...fieldProps} autoComplete="current-password" />
+
                   {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}
                 </Field>
               );

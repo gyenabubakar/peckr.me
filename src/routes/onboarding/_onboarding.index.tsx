@@ -77,7 +77,7 @@ function CreateSpacePage() {
         <h1>
           Create your <span>Peckr</span> space.
         </h1>
-        <p>Set up a shared space to manage your links with your team.</p>
+        <p>Set up a workspace to manage your links with your team.</p>
       </div>
 
       <form onSubmit={getSubmitHandler(form)}>
@@ -106,7 +106,7 @@ function CreateSpacePage() {
                     <div className="bg-gray-50 px-2.5 border-y border-l rounded-l-md border-border flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">peckr.me/app/</span>
                     </div>
-                    <Input {...fieldProps} className=" rounded-l-none" wrapperClass="grow" />
+                    <Input {...fieldProps} className="rounded-l-none z-[2]" />
                   </div>
 
                   {renderIf(isInvalid, <FieldError errors={field.state.meta.errors} />)}

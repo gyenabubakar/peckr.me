@@ -36,7 +36,7 @@ function ForgotPasswordPage() {
           Reset your <span>Peckr</span> account password.
         </h1>
         <p className="text-muted-foreground">
-          If your email is associated with an account, we will send you link to change your
+          If your email is associated with an account, we will send you a link to change your
           password.
         </p>
       </div>

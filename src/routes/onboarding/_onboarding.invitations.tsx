@@ -132,11 +132,7 @@ function SpaceInvitationsPage() {
                                 const { isInvalid, fieldProps } = getFieldProps(inviteField, '');
                                 return (
                                   <Field data-invalid={isInvalid}>
-                                    <Input
-                                      {...fieldProps}
-                                      className="rounded-r-none"
-                                      wrapperClass="grow"
-                                    />
+                                    <Input {...fieldProps} className="rounded-r-none z-[2]" />
                                   </Field>
                                 );
                               }}

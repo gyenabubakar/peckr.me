@@ -40,11 +40,12 @@ function SubDomainPage() {
         <ProRequiredBadge />
 
         <h1>
-          Pick a subdomain for your <span className="text-primary">Peckr</span> space.
+          Pick a <span className="text-primary">Peckr</span> domain for your space.
         </h1>
         <p>
-          Choose a subdomain that makes it easy for your team to identify your space. In the future,
-          you'll be able to add a custom domain to boost trust.
+          Choose a subdomain to brand your shortened links.
+          <br />
+          In the future, you'll be able to add a custom domain to build trust.
         </p>
       </div>
 
@@ -61,7 +62,7 @@ function SubDomainPage() {
                   </FieldDescription>
 
                   <div className="relative w-full flex">
-                    <Input {...fieldProps} className="rounded-r-none" wrapperClass="grow" />
+                    <Input {...fieldProps} className="rounded-r-none z-[2]" />
                     <div className="bg-gray-50 px-2.5 border-y border-r rounded-r-md border-border flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">.peckr.me</span>
                     </div>
