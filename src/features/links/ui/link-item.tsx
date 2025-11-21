@@ -11,8 +11,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from 'shadcn/avatar';
 import { Badge } from 'shadcn/badge';
 import { Button } from 'shadcn/button';
-import type { PeckrLink } from '~/features/links/types';
 import { formatTimeAgo, getInitials, renderIf } from '~/lib';
+import type { PeckrLink } from '~/features/links/types';
 
 export interface LinkItemProps {
   link: PeckrLink;
@@ -25,8 +25,8 @@ export function LinkItem({ link }: LinkItemProps) {
     <div className="flex items-center justify-between overflow-hidden rounded-lg border border-border gap-12 bg-background p-4 transition-shadow hover:shadow-sm">
       <div className="min-w-0 flex flex-1 items-center gap-4">
         <Avatar className="size-10 border border-border flex items-center justify-center">
-          <AvatarImage src={favicon} alt={domain} className="size-7" />
-          <AvatarFallback className="border border-border">
+          <AvatarImage src={favicon} alt={domain} className="size-6" />
+          <AvatarFallback>
             <GlobeIcon className="size-5 text-gray-700" />
           </AvatarFallback>
         </Avatar>

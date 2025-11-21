@@ -26,9 +26,14 @@ function SpaceDashboardLayout() {
 
   return (
     <SidebarProvider data-space-layout className="text-black">
-      <div className="w-svw h-svh">
+      <div
+        className="w-svw h-svh"
+        style={
+          { '--sidebar-full-width': 'calc(var(--sidebar-width) + 42px + 8px)' } as CSSProperties
+        }
+      >
         <Sidebar
-          className="!border-r-0 [&_[data-slot=sidebar-inner]]:!bg-transparent"
+          className="border-r-0! **:data-[slot=sidebar-inner]:bg-transparent!"
           style={{ width: `calc(var(--sidebar-width) + 41.5px)` } as CSSProperties}
         >
           <div className="flex h-full">
@@ -125,7 +130,7 @@ function SpaceDashboardLayout() {
           </div>
         </Sidebar>
 
-        <div className="ml-[calc(var(--sidebar-width)+42px+8px)] py-2 pr-2">
+        <div className="ml-(--sidebar-full-width) py-2 pr-2">
           <main className="bg-white rounded-md min-h-svh">
             <Outlet />
           </main>

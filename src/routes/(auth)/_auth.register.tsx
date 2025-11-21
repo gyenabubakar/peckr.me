@@ -9,10 +9,10 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from 'shadcn/input-otp';
 import { cn } from 'shadcn/lib/utils';
 import { toast } from 'sonner';
 import { useCountdown } from 'usehooks-ts';
-import { PasswordInput } from '~/components';
 import { OTP_LENGTH } from '~/features/auth/constants';
 import { EmailVerificationSchema, RegisterSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
+import { PasswordInput } from '~/components';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 

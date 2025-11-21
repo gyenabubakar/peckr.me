@@ -4,9 +4,9 @@ import { Button } from 'shadcn/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from 'shadcn/field';
 import { Input } from 'shadcn/input';
 import { toast } from 'sonner';
-import { PasswordInput } from '~/components';
 import { LoginSchema } from '~/features/auth/schemas';
 import { SocialAuthButtons } from '~/features/auth/ui';
+import { PasswordInput } from '~/components';
 import { renderIf, sleep } from '~/lib';
 import { getFieldProps, getSubmitHandler } from '~/lib/forms';
 
