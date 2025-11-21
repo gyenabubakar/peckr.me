@@ -11,7 +11,8 @@ import {
 import { Button } from 'shadcn/button';
 import { Input } from 'shadcn/input';
 import { PageShell } from '~/features/dashboard/ui';
-import { EmptyState } from '~/features/links/ui';
+import { MOCK_LINKS } from '~/features/links/constants';
+import { EmptyState, LinkItem } from '~/features/links/ui';
 
 export const Route = createFileRoute('/app/$slug/_space/')({
   component: SpaceDashboardIndex,
@@ -59,7 +60,15 @@ function SpaceDashboardIndex() {
         </div>
       </div>
 
-      <EmptyState />
+      {MOCK_LINKS.length > 0 ? (
+        <div className="grid gap-4">
+          {MOCK_LINKS.map((link) => (
+            <LinkItem key={link.id} link={link} />
+          ))}
+        </div>
+      ) : (
+        <EmptyState />
+      )}
     </PageShell>
   );
 }

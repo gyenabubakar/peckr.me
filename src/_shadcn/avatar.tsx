@@ -12,8 +12,9 @@ function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimi
   );
 }
 
-type AvatarImageProps = Omit<React.ComponentProps<typeof AvatarPrimitive.Image>, 'src'> & {
+type AvatarImageProps = Omit<React.ComponentProps<typeof AvatarPrimitive.Image>, 'src' | 'alt'> & {
   src: string | null | undefined;
+  alt: string | null | undefined;
 };
 
 function AvatarImage({ className, ...props }: AvatarImageProps) {
@@ -23,6 +24,7 @@ function AvatarImage({ className, ...props }: AvatarImageProps) {
       className={cn('aspect-square size-full', className)}
       {...props}
       src={props.src ?? undefined}
+      alt={props.alt ?? undefined}
     />
   );
 }
